@@ -27,3 +27,4 @@ jobs:
         run: |
           aws s3 cp . s3://cloudresumechallenge.petar-slat.from.hr/ --recursive
       - run: echo "🍏 This job's status is ${{ job.status }}."
+#
