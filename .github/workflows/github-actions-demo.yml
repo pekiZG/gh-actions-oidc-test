@@ -10,12 +10,6 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: arn:aws:iam::776406839915:role/github_actions_role
-          role-session-name: samplerolesession
-          aws-region: eu-central-1
       - name: Check out repository code
         uses: actions/checkout@v3
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
@@ -23,6 +17,12 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          role-to-assume: arn:aws:iam::776406839915:role/github_actions_role
+          role-session-name: samplerolesession
+          aws-region: eu-central-1
       - name:  Copy * to s3
         run: |
           aws s3 cp . s3://cloudresumechallenge.petar-slat.from.hr/ --recursive
