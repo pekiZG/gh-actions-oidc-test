@@ -26,3 +26,4 @@ jobs:
       - name:  Copy * to s3
         run: |
           aws s3 cp . s3://cloudresumechallenge.petar-slat.from.hr/ --recursive
+#
