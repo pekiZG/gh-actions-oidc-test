@@ -2,7 +2,7 @@ name: AWS upload to S3 using Github OIDC
 on: [push]
 permissions:
   id-token: write
-  contents: read # This is required for actions/checkout@v3
+  contents: read # This is required for actions/checkout
 jobs:
   S3Upload:
     runs-on: ubuntu-latest
@@ -11,9 +11,10 @@ jobs:
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@master
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::776406839915:role/github_actions_role
+          role-session-name: samplerolesession
           aws-region: eu-central-1
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -22,8 +23,7 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
       - name:  Copy * to s3
         run: |
           aws s3 cp . s3://cloudresumechallenge.petar-slat.from.hr/ --recursive
-#
+      - run: echo "🍏 This job's status is ${{ job.status }}."
