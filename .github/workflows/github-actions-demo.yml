@@ -23,8 +23,7 @@ jobs:
           role-to-assume: arn:aws:iam::776406839915:role/github_actions_role
           role-session-name: samplerolesession
           aws-region: eu-central-1
-      - name:  Copy * to s3
+      - name: Copy * to s3
         run: |
           aws s3 cp . s3://cloudresumechallenge.petar-slat.from.hr/ --recursive
       - run: echo "🍏 This job's status is ${{ job.status }}."
-#
